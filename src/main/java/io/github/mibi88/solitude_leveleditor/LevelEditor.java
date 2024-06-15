@@ -65,6 +65,7 @@ public class LevelEditor extends Editor {
     public boolean newFile() {
         if(super.newFile()){
             System.out.println("New file");
+            new TestClass("Test class");
         }
         return true;
     }
