@@ -18,10 +18,11 @@
 
 package io.github.mibi88.solitude_leveleditor;
 
+import io.github.mibi88.mibinestools.Editor;
+import io.github.mibi88.mibinestools.Window;
 import java.awt.GridLayout;
 import java.io.File;
 import javax.swing.JButton;
-import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 import javax.swing.JTabbedPane;
 
@@ -29,13 +30,15 @@ import javax.swing.JTabbedPane;
  *
  * @author mibi88
  */
-public class Editor {
+public class LevelEditor extends Editor {
+    private static String editorName = "Level Editor";
     JButton demo_button1;
     JButton demo_button2;
     JTabbedPane tabbedPane;
     JSplitPane splitPane;
-    public Editor(JPanel panel) {
-        panel.setLayout(new GridLayout(1, 1));
+    public LevelEditor(Window window) {
+        super(window);
+        setLayout(new GridLayout(1, 1));
         
         demo_button1 = new JButton("Button 1");
         demo_button2 = new JButton("Button 2");
@@ -44,52 +47,78 @@ public class Editor {
         
         splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,
                 demo_button1, tabbedPane);
-        panel.add(splitPane);
+        setEditorName("Level Editor");
+        add(splitPane);
     }
     
+    @Override
     public void undo() {
         System.out.println("Undo");
     }
     
+    @Override
     public void redo() {
         System.out.println("Redo");
     }
     
+    @Override
     public boolean newFile() {
-        System.out.println("New file");
+        if(super.newFile()){
+            System.out.println("New file");
+        }
         return true;
     }
     
+    @Override
     public boolean openFile(File file) {
-        System.out.println("Open file: " + file.getName());
+        if(super.openFile(file)){
+            System.out.println("Open file: " + file.getName());
+        }
         return true;
     }
     
+    @Override
     public void saveFile() {
+        super.saveFile();
         System.out.println("Save file");
     }
     
+    @Override
     public void saveAsFile(File file) {
+        super.saveAsFile(file);
         System.out.println("Save as file: " + file.getName());
     }
     
+    @Override
     public void copy() {
         System.out.println("Copy");
     }
     
+    @Override
     public void cut() {
         System.out.println("Cut");
     }
     
+    @Override
     public void paste() {
         System.out.println("Paste");
     }
     
+    @Override
     public void setScale(int scale) {
         System.out.println("Set scale: " + Integer.toString(scale));
     }
     
+    @Override
     public void setGrid(boolean grid) {
         System.out.println("Set grid: " + Boolean.toString(grid));
+    }
+    
+    public static String getEditorName() {
+        return editorName;
+    }
+    
+    public static String[] getExtension() {
+        return new String[]{"level"};
     }
 }
